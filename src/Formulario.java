@@ -69,6 +69,8 @@ public class Formulario {
                     ci_in.setText(showObject.getCedula());
                     age_in.setText(showObject.getEdad());
 
+                    System.out.println("Archivo leido correctamete");
+
                 } catch (FileNotFoundException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 } catch (IOException ex) {
