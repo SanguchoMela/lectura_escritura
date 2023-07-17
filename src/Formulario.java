@@ -23,7 +23,6 @@ public class Formulario {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MyClass miObjeto = new MyClass(name_in.getText(),ci_in.getText(),age_in.getText());
-
                 try(
                         FileOutputStream fileOut = new FileOutputStream(filePath);
                         ObjectOutputStream objectOut = new ObjectOutputStream(fileOut))
@@ -55,6 +54,26 @@ public class Formulario {
                 name_in.setText(null);
                 ci_in.setText(null);
                 age_in.setText(null);
+            }
+        });
+        mostrarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try(
+                        FileInputStream fileIn = new FileInputStream(filePath);
+                        ObjectInputStream objectIn = new ObjectInputStream(fileIn)
+                ){
+                    MyClass showObject = (MyClass) objectIn.readObject();
+
+                    name_in.setText(showObject.getNombre());
+                    ci_in.setText(showObject.getCedula());
+                    age_in.setText(showObject.getEdad());
+
+                } catch (FileNotFoundException | ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
